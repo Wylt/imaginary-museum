@@ -1,0 +1,178 @@
+<html>
+  <head>
+
+      <title> imaginary-museum.world </title>
+        <link rel="icon" href="Images/02Imaginary.png"/>
+
+        <!-- A-Frame -->
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+
+        <!-- A-Frame Event -->
+        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+        <!-- A-Frame VR -->
+        <script src="https://unpkg.com/super-hands@^3.0.1/dist/super-hands.min.js"></script>
+        <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+        <link rel="stylesheet" href="/StyleAframe1.css">
+  </head>
+  <body>
+  
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading</div>
+    </div>
+
+    <script>
+        // Wait for the assets to load before hiding the loading screen
+        window.addEventListener('load', function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.display = 'none';
+        });
+        
+    </script>
+
+ <div class="footer">
+            <a href="#" class="about-btn">Watch Preview video</a>
+            <a class="about-btnn">IMAGINARY-MUSEUM.WORLD</a>
+            <ul class="credits">
+                <li>
+                    <a href="https://www.remipetitjean.com/" target="_blank">
+                        <img src="Images/01Remi.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.remipetitjean.com/imaginary-museum" target="_blank">
+                        <img src="Images/02Imaginary.png">
+                    </a>
+                </li>
+            
+            </ul>
+        </div>
+
+        <div class="a-enter-vr" aframe-injected="">
+            <button class="a-enter-vr-button" title="E" alt="e" aframe-injected=""></button>
+        </div>
+
+        <a-scene fog="type: linear; color: #c2c2c2; far: 70; near: 5" device-orientation-permission-ui="enabled: false" 
+        renderer="antialias: true;
+             colorManagement: true;
+             physicallyCorrectLights: true;
+             maxCanvasWidth: 4096;
+             maxCanvasHeight: 2048 " 
+             background="color: #c2c2c2"
+             loading-screen>
+
+            <!-- VR camera  -->
+            <a-entity id="cameraRig" position="2 0 0" rotation="0 90 0">
+                <a-camera position="0 1.45 0" wasd-controls="enabled:true" fov="50"></a-camera>
+                <a-entity id="head" camera wasd-controls="enabled.false" look-controls="enabled.true" fov="40"></a-entity>
+                <a-entity id="cursor" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+               
+                <!-- hand controls  -->
+                <a-entity id="left-hand" oculus-touch-controls="hand: left;" valve-index-controls="hand: left" vive-controls="hand: left" vive-focus-controls="hand: left" windows-motion-controls="" generic-tracked-controller-controls="hand: left">></a-entity>
+                <a-entity id="right-hand" laser-controls="defaultModelColor: #000000" raycaster="objects: .clickable; far: 6; lineColor: #000000; lineOpacity: 0" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; button: trigger; hitCylinderColor: #Roboto; curveHitColor: #737373; curveLineWidth: 0; curveMissColor: #1a1b6b; type: line; curveNumberPoints: 5; curveShootingSpeed: 3; hitCylinderRadius: 0.3; hitCylinderHeight: 0.25; collisionEntities: #groundfut , #ground" oculus-touch-controls="hand: right;" valve-index-controls="hand: right" vive-controls="hand: right" vive-focus-controls="hand: right" windows-motion-controls="" generic-tracked-controller-controls="hand: right">
+                    <a-box id="cone" rotation="-90 0 0" opacity="0.3" transparent="true" src="#cont" scale="0.02 0.8 0.02" position="-0.015 0 -0.4" open-ended="true" color="#696969" segments-radial="12" wireframe="false" animation="property: opacity; from:0.3; to : 0.01; dir: alternate; loop:true; dur:3000"></a-box>
+                    <a-box id="cone1" rotation="-90 0 0" opacity="0.05" transparent="true" src="#cont" scale="0.02 0.8 0.02" position="-0.015 0 -0.4" open-ended="true" color="#696969" segments-radial="8" wireframe="true" wireframe-linewidth="0.5"></a-box>
+                </a-entity>
+            </a-entity>
+
+             <!-- Assets  -->
+             <a-asset>
+                <a-asset-item id="gallery" src="Assets/00Entrance/EntranceRoom_Imaginary.glb" preload="true"></a-asset-item>
+                <a-img id="cont" src="Line.png" preload="true"></a-img>
+                <a-img id="info" src="Images/Visit.png" preload="true"></a-img>
+                <a-img id="info1" src="Images/visit2.png" preload="true"></a-img>
+                <a-img id="info2" src="Images/visit3.png" preload="true"></a-img>
+                <audio id="MusicCompo1" src="MusicCompo_1.mp3" preload="true"></audio>
+                <a-asset-item id="cfloor" src="Assets/CharacterAndFloor.glb"></a-asset-item>
+                <video id="video-presentation" autoplay loop="true" src="Assets/V_Loin_Imaginary.mp4"></video>
+            </a-asset>
+
+
+             <!-- Room Basis  -->
+             <a-entity light="type: ambient; color: #BBB; intensity:4"></a-entity>
+             <a-gltf-model id="structure" src="#gallery" scale="1 1 1" rotation="0 0 0" visible="true" material="flastShading:true"></a-gltf-model>
+             <a-gltf-model id="characterfloor" src="#cfloor" scale="1 1 1" rotation="0 0 0" visible="true" material="flastShading:true"></a-gltf-model>
+            
+
+
+            <!-- Portal Link Stairs - 360 video -->
+             <a-link position="-13.657 5.47136 -23.032" rotation="0 100 0" scale="2.516 2.516 2.516" geometry="primitive: circle; segments: 64; radius: 0.82" material="shader: portal; side: double; backgroundColor: #ebf9ff" link="backgroundColor: #ebf9ff"><a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity>
+                <a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity>
+                 <a-entity geometry="primitive: sphere; radius: 0.99; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity>
+                 <a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation=""></a-entity>
+                 <a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity>
+                 <a-entity geometry="primitive: sphere; radius: 0.9; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity><a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation=""></a-entity><a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity><a-entity geometry="primitive: sphere; radius: 10; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity></a-link>
+            
+            <!-- Portal Link House - process and ideas (VR) - public domain - an explanation for why these artists - going forward to the other platforms -->
+            <a-link position="33.82552 2.10911 -0.05069" rotation="0 -90 0" scale="1.34942 1.34942 1.34942" geometry="primitive: circle; segments: 64" material="shader: portal; side: double; backgroundColor: #ebf9ff" link="backgroundColor: #ebf9ff"><a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity>
+                <a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity>
+                 <a-entity geometry="primitive: sphere; radius: 0.99; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity>
+                 <a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation=""></a-entity>
+                 <a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity>
+                 <a-entity geometry="primitive: sphere; radius: 0.9; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity><a-entity text="color: white; align: center; font: kelsonsans; width: 5" position="0 1.5 0" rotation=""></a-entity><a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity><a-entity geometry="primitive: sphere; radius: 10; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity><a-entity text="color: white; align: center; font: kelsonsans; width: 4" position="0 1.5 0"></a-entity><a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; side: back" rotation="0 180 0" position="" visible="false"></a-entity><a-entity geometry="primitive: sphere; radius: 10; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; side: back" visible="false"></a-entity></a-link>
+
+              <!-- Rooms -->
+             <a-plane link="href: 01Mondrian.html" id="Room01_Mondrian" src="#info" transparent="true" opacity="0.5" position="-10.12527 0.41886 -9.38181" rotation="0 90.3829462662971 0" scale="0.35 0.35 0.35" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               ></a-plane>
+
+               <a-plane link="href: 02Hokusai.html"  id="Room02" src="#info1" transparent="true" opacity="0.5" position="15.38669 1.5 17.73473" rotation="0 -155.0337849954738 0" scale="0.5 0.5 0.5" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 03Munch.html"  id="Room03" src="#info2" transparent="true" opacity="0.5" position="-10.02942 1.72717 9.36726" rotation="0 126.0077430941463 0" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 04Rodin.html"  id="Room04" src="#info" transparent="true" opacity="0.5" position="-0.14783 1.4346 -8.69295" rotation="" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 05Titien.html"  id="Room05" src="#info1" transparent="true" opacity="0.5" position="6.56082 1.00724 9." rotation="0 180 0" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 06VenusFromMilo.html"  id="Room06" src="#info2" transparent="true" opacity="0.5" position="-20.49479 1.65732 -3.06489" rotation="0 90 0" scale="0.5 0.5 0.5" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 07WeddingOfCana.html"  id="Room07" src="#info" transparent="true" opacity="0.5" position="29.73104 1.17557 -16.30588" rotation="0 -41.91243567161485 0" scale="0.75 0.75 0.75" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 08Manet.html"  id="Room08" src="#info1" transparent="true" opacity="0.5" position="-9.1759 0.47973 1.45363" rotation="0 90 0" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 09ElLissitzky.html"  id="Room09" src="#info2" transparent="true" opacity="0.5" position="-16.8454 1.53121 6.64787" rotation="0 121.48596017497384 0" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 10AmedeoModigliani.html"  id="Room10" src="#info" transparent="true" opacity="0.5" position="7.13103 3.09152 -19.0557" rotation="" scale="0.4 0.4 0.4" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: 11JeanneHebutherne.html"  id="Room11" src="#info1" transparent="true" opacity="0.5" position="3.91853 0.8305 -18.59084" rotation="" scale="0.3 0.3 0.3" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+               <a-plane link="href: https://www.0-10-exhibition.com/VR.html"  id="Room12" src="#info2" transparent="true" opacity="0.5"position="14.29912 1.30445 -3.0228" rotation="0 -65.92337799216226 0" scale="0.3 0.3 0.3" class="clickable" 
+               animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500" 
+               animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500" 
+               event-set__button="_event:click; class:none"></a-plane>
+
+
+  </body>
+</html>
